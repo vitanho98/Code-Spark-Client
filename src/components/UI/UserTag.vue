@@ -1,0 +1,9 @@
+<script setup lang="ts">
+defineProps<{
+    text: string
+}>()
+</script>
+
+<template>
+    <h1 class="w-44 text-center font-semibold rounded text-xl bg-green-500">{{ text }}</h1>
+</template>

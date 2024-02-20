@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@300;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply outline-none list-none
+  }
+
+  :-webkit-scrollbar {
+    @apply w-2
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-800 rounded
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-green-500 rounded
+  }
+
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+@layer components {
+  .active-link {
+    @apply text-green-200
+  }
+}
