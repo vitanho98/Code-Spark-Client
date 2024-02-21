@@ -68,7 +68,7 @@ const courses: ICourse[] = [
     <section>
         <article class="pt-28 max-w-screen-xl mx-auto flex flex-col gap-10">
             <header class="flex gap-10 flex-wrap justify-between">
-                <div class="w-120 h-min p-5 flex flex-1 gap-7 bg-gray-800 rounded-lg">
+                <div class="w-180 h-min p-5 flex flex-1 gap-7 bg-gray-800 rounded-lg">
                     <div class="flex flex-col gap-7 items-center">
                         <img src="../assets/img/backgroundImg.png" alt="Imagem do usuário" class="w-48 h-48 rounded">
                         <UserTag text="Student" />

@@ -4,6 +4,7 @@ import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import SingUpViewVue from '@/views/SingUpView.vue'
 import SingInViewVue from '@/views/SingInView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
+import ClassPageViewVue from '@/views/ClassPageView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileViewVue
+    },
+    {
+      path: '/classpage',
+      name: 'classpage',
+      component: ClassPageViewVue
     }
   ]
 })
