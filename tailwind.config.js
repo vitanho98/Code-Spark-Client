@@ -44,6 +44,7 @@ export default {
         DEFAULT: '5px',
       },
       spacing: {
+        120: '30.0rem',
         180: '43.75rem',
         250: '62.5rem'
       }
