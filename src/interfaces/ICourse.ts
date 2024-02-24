@@ -1,9 +1,8 @@
 export interface ICourse {
-  id: number
-  title: string
-  coverImageUrl: string
-  instructor: {
-    name: string
-  }
-  evaluationAverage: number
+  id: string,
+  name: string,
+  description: string,
+  coverImageKey: string,
+  bannerImageKey: string,
+  createdAt: Date
 }
