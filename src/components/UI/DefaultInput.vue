@@ -6,7 +6,5 @@ defineProps<{
 </script>
 
 <template>
-    <div class="flex flex-col justify-center items-center">
-        <input class="w-96 h-12 text-lg rounded bg-gray-800 pl-4" :type="type" :placeholder="placeholder">
-    </div>
+    <input class="w-full py-2 px-3 text-lg rounded bg-gray-800 pl-4" :type="type" :placeholder="placeholder">
 </template>

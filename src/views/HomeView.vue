@@ -65,7 +65,7 @@ const courses: ICourse[] = [
 </script>
 
 <template>
-  <section id="home" class="px-6">
+  <section id="home" class="px-4">
     <article class="max-w-screen-2xl mx-auto max-sm:pt-12 pt-28 flex flex-col gap-8">
       <header>
         <DefaultTitle text="Bem-vindo, Usuário" />
