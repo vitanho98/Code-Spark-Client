@@ -5,7 +5,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="bg-green-500 rounded flex justify-center cursor-pointer h-12">
-    <h1 class="flex items-center text-white font-roboto font-semibold">{{ text }}</h1>
-  </div>
+  <button
+    class="bg-green-500 rounded flex justify-center items-center cursor-pointer p-2 hover:opacity-80 transition-opacity">
+    <span class="text-white text-center font-roboto font-semibold">{{ text }}</span>
+  </button>
 </template>

@@ -14,5 +14,6 @@ const localActive = ref(active)
 
 <template>
   <Rating v-model="localActive" class="flex gap-2 text-green-200" :stars="length ?? 5" :readonly="readOnly"
-    :disabled="disabled" :cancel="false" />
+    :disabled="disabled" :cancel="false">
+  </Rating>
 </template>

@@ -6,12 +6,12 @@ const courseImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xC
 </script>
 
 <template>
-    <section class="flex gap-12 flex-col pt-28 px-16">
+    <section class="flex gap-12 flex-col sm:pt-28 pb-10 md:px-16">
         <header class="w-full">
             <img class="w-full h-96 rounded object-cover" :src="courseImg" alt="Imagem do curso">
         </header>
 
-        <main class="flex items-center justify-between">
+        <main class="flex flex-col px-4 md:px-0 gap-10 2xl:flex-row items-center justify-between">
             <div class="max-w-4xl flex-col flex gap-6">
                 <h1 class="font-righteous text-2xl text-green-500">Curso de HTML</h1>
                 <p class="text-lg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate recusandae quod
@@ -23,6 +23,7 @@ const courseImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xC
                     nostrum, accusamus, eum numquam doloribus quam! Hic sunt dolorem et harum.</p>
                 <DefaultButton text="Inscreva-se" />
             </div>
+
             <div class="bg-gray-800 w-80 rounded p-5 box-border">
                 <ul class="flex gap-5 flex-wrap justify-center">
                     <li class="flex flex-col text-center gap-1">

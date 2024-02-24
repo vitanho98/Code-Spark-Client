@@ -9,7 +9,7 @@
     @apply outline-none list-none
   }
 
-  :-webkit-scrollbar {
+  ::-webkit-scrollbar {
     @apply w-2
   }
 
