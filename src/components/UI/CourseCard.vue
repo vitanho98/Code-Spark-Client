@@ -19,7 +19,7 @@ defineProps<{
           :src="`${cloudflarePublicUrl}/${course.course.coverImageKey}`" alt="Imagem do curso">
       </header>
 
-      <main class="p-4 flex flex-col gap-3">
+      <main class="p-4 flex flex-col gap-5">
         <div>
           <h2 class="text-lg font-bold text-white">{{ course.course.name }}</h2>
           <DefaultLink :small="true" :text="course.instructor.name" :to="`/profile/${course.instructor.name}`" />

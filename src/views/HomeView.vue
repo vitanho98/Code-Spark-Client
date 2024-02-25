@@ -5,6 +5,7 @@ import DefaultList from '@/components/UI/DefaultList.vue';
 import DefaultTitle from '@/components/UI/DefaultTitle.vue';
 import type { ICourseWithInstructorAndEvaluationsAverage } from '@/interfaces/ICourseWithInstructorAndEvaluationsAverage';
 import { api } from '@/lib/axios';
+import { useAuthStore } from '@/stores/auth';
 
 export default {
   components: {
@@ -13,20 +14,24 @@ export default {
     DefaultList,
     CourseCard,
   },
+
   data() {
+    const { user } = useAuthStore()
+
     return {
-      courses: [] as ICourseWithInstructorAndEvaluationsAverage[]
+      courses: [] as ICourseWithInstructorAndEvaluationsAverage[],
+      user
     }
   },
+
   mounted() {
     this.fetchRecentCourses()
   },
+
   methods: {
-    fetchRecentCourses() {
-      api.get<{ courses: ICourseWithInstructorAndEvaluationsAverage[] }>('/courses')
-        .then(res => {
-          this.courses = res.data.courses
-        })
+    async fetchRecentCourses() {
+      const response = await api.get<{ courses: ICourseWithInstructorAndEvaluationsAverage[] }>('/courses')
+      this.courses = response.data.courses
     }
   }
 }
@@ -36,7 +41,7 @@ export default {
   <section id="home" class="px-4 pb-10">
     <article class="max-w-screen-2xl mx-auto max-sm:pt-12 pt-28 flex flex-col gap-8">
       <header>
-        <DefaultTitle text="Bem-vindo, Usuário" />
+        <DefaultTitle :text="`Bem-vindo ${user?.name ?? '!'}`" />
       </header>
 
       <main class="flex flex-col gap-9">
