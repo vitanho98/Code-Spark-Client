@@ -1,11 +1,20 @@
 import { useAuthStore } from '@/stores/auth'
 import ClassPageView from '@/views/ClassPageView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
+
+import CatalogPageViewVue from '@/views/CatalogPageView.vue'
+import ModulePageViewVue from '@/views/ModulePageView.vue'
+import SingUpViewVue from '@/views/SingUpView.vue'
+import SingInViewVue from '@/views/SingInView.vue'
+import ProfileViewVue from '@/views/ProfileView.vue'
+import ClassPageViewVue from '@/views/ClassPageView.vue'
+
 import ProfileViewVue from '@/views/ProfileView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,7 +78,21 @@ const router = createRouter({
     {
       path: '/classpage',
       name: 'classpage',
+
+      component: ClassPageViewVue
+    },
+    {
+      path: '/modules',
+      name: 'modules',
+      component: ModulePageViewVue
+    },
+    {
+      path: '/catalog',
+      name: 'catalog',
+      component: CatalogPageViewVue
+
       component: ClassPageView
+
     }
   ]
 })
