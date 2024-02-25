@@ -1,4 +1,7 @@
+import type { ICourse } from '@/interfaces/ICourse'
+import { api } from '@/lib/axios'
 import { useAuthStore } from '@/stores/auth'
+import AddModuleToCourseView from '@/views/AddModuleToCourseView.vue'
 import ClassPageView from '@/views/ClassPageView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
@@ -23,16 +26,49 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+
     {
       path: '/courses/new',
       name: 'registerCourse',
       component: RegisterCourseView,
     },
+
+    {
+      path: '/courses/:courseId/modules/new',
+      name: 'addModuleToCourse',
+      component: AddModuleToCourseView,
+      beforeEnter: async (to, from, next) => {
+        const courseId = to.params.courseId as string
+        const { user } = useAuthStore()
+
+        try {
+          const response = await api.get<{course: ICourse}>(`/courses/${courseId}`)
+          const instructorIsTheOwner = user && user.id === response.data.course.instructorId
+
+          if (!instructorIsTheOwner) {
+            return next({
+              path: '/' // Unauthorized
+            })
+          }
+
+          return next() // OK, continue
+        } catch (err) {
+          console.error(err)
+
+          // Future 404 page
+          return next({
+            path: '/'
+          })
+        }
+      }
+    },
+
     {
       path: '/courses/:courseId/enroll',
       name: 'enroll',
       component: EnrollCourseView,
     },
+
     {
       path: '/signup',
       name: 'signup',
@@ -40,16 +76,17 @@ const router = createRouter({
       meta: {
         hideNavbar: true,
        },
-       beforeEnter: () => {
+       beforeEnter: (_to, _from, next) => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
-          return {
-            name: 'home'
-          }
+          return next({
+            path: '/'
+          })
         }
        }
     },
+
     {
       path: '/signin',
       name: 'signin',
@@ -57,21 +94,23 @@ const router = createRouter({
       meta: {
         hideNavbar: true,
        },
-       beforeEnter: () => {
+       beforeEnter: (_to, _from, next) => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
-          return {
-            name: 'home'
-          }
+          return next({
+            path: '/'
+          })
         }
        }
     },
+
     {
       path: '/profile',
       name: 'profile',
       component: ProfileViewVue
     },
+
     {
       path: '/classpage',
       name: 'classpage',

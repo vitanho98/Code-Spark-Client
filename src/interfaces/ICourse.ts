@@ -4,5 +4,6 @@ export interface ICourse {
   description: string,
   coverImageKey: string,
   bannerImageKey: string,
+  instructorId: string,
   createdAt: Date
 }
