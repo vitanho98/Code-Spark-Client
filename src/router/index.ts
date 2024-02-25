@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
+import ModulePageViewVue from '@/views/ModulePageView.vue'
 import SingUpViewVue from '@/views/SingUpView.vue'
 import SingInViewVue from '@/views/SingInView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/classpage',
       name: 'classpage',
       component: ClassPageViewVue
+    },
+    {
+      path: '/modules',
+      name: 'modules',
+      component: ModulePageViewVue
     }
   ]
 })
