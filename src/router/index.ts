@@ -2,6 +2,7 @@ import { useAuthStore } from '@/stores/auth'
 import ClassPageView from '@/views/ClassPageView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
+import RegisterCourseView from '@/views/RegisterCourseView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -23,7 +24,12 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/course/:courseId/enroll',
+      path: '/courses/new',
+      name: 'registerCourse',
+      component: RegisterCourseView,
+    },
+    {
+      path: '/courses/:courseId/enroll',
       name: 'enroll',
       component: EnrollCourseView,
     },

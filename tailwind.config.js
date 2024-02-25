@@ -44,6 +44,11 @@ export default {
       borderRadius: {
         DEFAULT: '5px',
       },
+
+      screens: {
+        'xs': '400px'
+      },
+
       spacing: {
         120: '30.0rem',
         180: '43.75rem',
