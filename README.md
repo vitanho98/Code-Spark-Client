@@ -15,3 +15,7 @@
 - [x] List of modules of a course in the Dashboard
 - [ ] List of classes of a course in the Dashboard
 - [ ] Settings page for a course in the Dashboard, with forms for update/edit info of a course
+
+## Possible refactors/updates
+
+- [ ] Form validation, We're out of time but it's super important

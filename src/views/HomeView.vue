@@ -1,80 +1,54 @@
-<script setup lang="ts">
+<script lang="ts">
 import ContentListWrapper from '@/components/UI/ContentListWrapper.vue';
 import CourseCard from '@/components/UI/CourseCard.vue';
 import DefaultList from '@/components/UI/DefaultList.vue';
 import DefaultTitle from '@/components/UI/DefaultTitle.vue';
-import { type ICourse } from '../interfaces/ICourse';
+import type { ICourseWithInstructorAndEvaluationsAverage } from '@/interfaces/ICourseWithInstructorAndEvaluationsAverage';
+import { api } from '@/lib/axios';
+import { useAuthStore } from '@/stores/auth';
 
-const courses: ICourse[] = [
-  {
-    id: 1,
-    title: 'Curso HTML topzera',
-    instructor: {
-      name: 'Deus Guanabara',
-    },
-    evaluationAverage: 4,
-    coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
+export default {
+  components: {
+    DefaultTitle,
+    ContentListWrapper,
+    DefaultList,
+    CourseCard,
   },
-  {
-    id: 2,
-    title: 'Curso HTML topzera',
-    instructor: {
-      name: 'Deus Guanabara',
-    },
-    evaluationAverage: 5,
-    coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
+
+  data() {
+    const { user } = useAuthStore()
+
+    return {
+      courses: [] as ICourseWithInstructorAndEvaluationsAverage[],
+      user
+    }
   },
-  {
-    id: 3,
-    title: 'Curso HTML topzera',
-    instructor: {
-      name: 'Deus Guanabara',
-    },
-    evaluationAverage: 5,
-    coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
+
+  mounted() {
+    this.fetchRecentCourses()
   },
-  {
-    id: 4,
-    title: 'Curso HTML topzera',
-    instructor: {
-      name: 'Deus Guanabara',
-    },
-    evaluationAverage: 5,
-    coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-  },
-  {
-    id: 5,
-    title: 'Curso HTML topzera',
-    instructor: {
-      name: 'Deus Guanabara',
-    },
-    evaluationAverage: 5,
-    coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-  },
-  {
-    id: 6,
-    title: 'Curso HTML topzera',
-    instructor: {
-      name: 'Deus Guanabara',
-    },
-    evaluationAverage: 3,
-    coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
+
+  methods: {
+    async fetchRecentCourses() {
+      const response = await api.get<{ courses: ICourseWithInstructorAndEvaluationsAverage[] }>('/courses')
+      this.courses = response.data.courses
+    }
   }
-]
-
+}
 </script>
 
 <template>
-  <section id="home" class="px-4">
+  <section id="home" class="px-4 pb-10">
     <article class="max-w-screen-2xl mx-auto max-sm:pt-12 pt-28 flex flex-col gap-8">
       <header>
-        <DefaultTitle text="Bem-vindo, Usuário" />
+        <DefaultTitle :text="`Bem-vindo ${user?.name ?? '!'}`" />
       </header>
 
       <main class="flex flex-col gap-9">
+        <!-- Authentication is required to get this data, so for now we will use the recent courses -->
         <ContentListWrapper title="Continue de onde parou">
           <DefaultList class="justify-center xl:justify-start">
-            <li v-for="course in courses" :key="course.id">
+            <li v-for="course in courses" :key="course.course.id">
               <CourseCard :course="course" />
             </li>
           </DefaultList>
@@ -82,7 +56,7 @@ const courses: ICourse[] = [
 
         <ContentListWrapper title="Cursos recentes">
           <DefaultList class="justify-center xl:justify-start">
-            <li v-for="course in courses" :key="course.id">
+            <li v-for="course in courses" :key="course.course.id">
               <CourseCard :course="course" />
             </li>
           </DefaultList>

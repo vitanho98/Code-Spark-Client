@@ -4,6 +4,7 @@ export default {
   theme: {
     colors: {
       'white': '#FFFFFF',
+      'transparent': 'transparent',
 
       gray: {
         100: '#E1E1E6',

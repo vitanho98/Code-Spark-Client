@@ -1,5 +1,8 @@
 export interface IClass {
-  id: number
-  name: string;
-  completed: boolean;
+  id: string,
+  name: string,
+  description: string,
+  classNumber: number,
+  moduleId: string,
+  videoId: string
 }
