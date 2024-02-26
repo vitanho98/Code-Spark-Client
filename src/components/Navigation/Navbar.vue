@@ -30,7 +30,7 @@ const { isAuthenticated, logout } = useAuthStore()
       <ul class="flex items-center gap-3">
         <li>
           <router-link to="/signin" v-if="!isAuthenticated">
-            <DefaultButton class="py-1 px-3" text="Entrar" to="/signin" />
+            <DefaultButton class="py-1 px-3" text="Entrar" />
           </router-link>
 
           <DefaultButton v-else class="bg-red-500 py-1 px-3" @click="logout" text="Sair" />

@@ -1,6 +1,8 @@
 import type { ICourse } from '@/interfaces/ICourse'
+import type { IModule } from '@/interfaces/IModule'
 import { api } from '@/lib/axios'
 import { useAuthStore } from '@/stores/auth'
+import AddClassToModuleView from '@/views/AddClassToModuleView.vue'
 import AddModuleToCourseView from '@/views/AddModuleToCourseView.vue'
 import ClassPageView from '@/views/ClassPageView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
@@ -9,6 +11,7 @@ import RegisterCourseView from '@/views/RegisterCourseView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useCookies } from 'vue3-cookies'
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
@@ -42,8 +45,40 @@ const router = createRouter({
         const { user } = useAuthStore()
 
         try {
-          const response = await api.get<{course: ICourse}>(`/courses/${courseId}`)
-          const instructorIsTheOwner = user && user.id === response.data.course.instructorId
+          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${courseId}`)
+          const instructorIsTheOwner = user && user.id === course.instructorId
+
+          if (!instructorIsTheOwner) {
+            return next({
+              path: '/' // Unauthorized
+            })
+          }
+
+          return next() // OK, continue
+        } catch (err) {
+          console.error(err)
+
+          // Future 404 page
+          return next({
+            path: '/'
+          })
+        }
+      }
+    },
+
+    {
+      path: '/modules/:moduleId/classes/new',
+      name: 'addClassToModule',
+      component: AddClassToModuleView,
+      beforeEnter: async (to, from, next) => {
+        const moduleId = to.params.moduleId as string
+        const { user } = useAuthStore()
+
+        try {
+          const {data: { module }} = await api.get<{module: IModule}>(`/modules/${moduleId}`)
+          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${module.courseId}`)
+
+          const instructorIsTheOwner = user && user.id === course.instructorId
 
           if (!instructorIsTheOwner) {
             return next({
@@ -84,6 +119,8 @@ const router = createRouter({
             path: '/'
           })
         }
+
+        return next()
        }
     },
 
@@ -102,6 +139,8 @@ const router = createRouter({
             path: '/'
           })
         }
+
+        return next()
        }
     },
 
@@ -121,7 +160,13 @@ const router = createRouter({
 
 router.beforeEach(async () => {
   const { getAuthenticatedUserData } = useAuthStore()
-  await getAuthenticatedUserData()
+  const { cookies } = useCookies()
+  
+  const cookie = cookies.get('spark.accesstoken')
+
+  if (cookie) {
+    await getAuthenticatedUserData()
+  }
 })
 
 export default router
