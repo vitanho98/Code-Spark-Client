@@ -8,6 +8,7 @@ import AddModuleToCourseView from '@/views/AddModuleToCourseView.vue'
 import ClassPageView from '@/views/ClassPageView.vue'
 import EditClassView from '@/views/EditClassView.vue'
 import EditModuleView from '@/views/EditModuleView.vue'
+import EditUserView from '@/views/EditUserView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import RegisterCourseView from '@/views/RegisterCourseView.vue'
@@ -216,6 +217,23 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileViewVue
+    },
+
+    {
+      path: '/profile/edit',
+      name: 'editAuthenticatedUser',
+      component: EditUserView,
+      beforeEnter: (_to, _from, next) => {
+        const { isAuthenticated } = useAuthStore()
+
+        if (!isAuthenticated) {
+          return next({
+            path: '/' // Not authenticated
+          })
+        }
+
+        return next()
+       }
     },
 
     {

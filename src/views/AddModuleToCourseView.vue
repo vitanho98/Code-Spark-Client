@@ -38,7 +38,7 @@ async function handleAddModuleToCourse() {
 
 <template>
   <FormPageTemplate title="Adicionar módulo">
-    <form @submit.prevent="handleAddModuleToCourse" class="w-full max-w-xl flex flex-col gap-4">
+    <form @submit.prevent="handleAddModuleToCourse" class="w-full max-w-xl flex flex-col gap-5">
       <DefaultInput v-model="formData.name" type="text" placeholder="Nome do módulo" />
       <DefaultTextArea v-model="formData.description" type="text" placeholder="Uma breve descrição sobre o módulo" />
       <DefaultInput v-model="formData.moduleNumber" type="number"

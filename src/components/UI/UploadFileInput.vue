@@ -16,29 +16,36 @@ function handleRemoveFile() {
 }
 
 defineProps<{
-  acceptType: 'image/png,image/jpeg' | 'video/mp4,video/x-msvideo,video/avi' | 'image/png,image/jpeg,video/mp4,video/x-msvideo,video/avi'
+  acceptType: 'image/png,image/jpeg' | 'video/mp4,video/x-msvideo,video/avi' | 'image/png,image/jpeg,video/mp4,video/x-msvideo,video/avi',
+  label?: string
 }>()
 </script>
 
 <template>
-  <FileUpload name="file" :auto="false" :show-upload-button="false" :cancel-label="'Remover'"
-    :invalid-file-type-message="'Formato inválido, formatos aceitos: JPEG e PNG para imagem, MP4 e AVI para vídeo'"
-    :accept="acceptType" :multiple="false" :file-limit="1" :choose-label="'Buscar'" @clear="handleRemoveFile"
-    @select="handleFileSelected">
-    <template #content="{ files: [file] }">
-      <article class="flex flex-col gap-5" v-if="file">
-        <header>
-          <h3 class="text-green-500 font-bold">Lista para upload:</h3>
-        </header>
+  <div class="flex flex-col gap-2">
+    <label v-if="label" class="text-gray-400 font-roboto font-bold"
+      :for="label.toLowerCase().trim().replace(/ /g, '-')">{{ label }}</label>
 
-        <main>
-          {{ file.name }}
-        </main>
-      </article>
-    </template>
+    <FileUpload name="file" :id="label?.toLowerCase().trim().replace(/ /g, '-') ?? 'file'" :auto="false"
+      :show-upload-button="false" :cancel-label="'Remover'"
+      :invalid-file-type-message="'Formato inválido, formatos aceitos: JPEG e PNG para imagem, MP4 e AVI para vídeo'"
+      :accept="acceptType" :multiple="false" :file-limit="1" :choose-label="'Adicionar'" @clear="handleRemoveFile"
+      @select="handleFileSelected">
+      <template #content="{ files: [file] }">
+        <article class="flex flex-col gap-5" v-if="file">
+          <header>
+            <h3 class="text-green-500 font-bold">Lista para upload:</h3>
+          </header>
 
-    <template #empty>
-      <p class="text-gray-300 font-bold">Arraste e solte o arquivo aqui para preparar o upload.</p>
-    </template>
-  </FileUpload>
+          <main>
+            {{ file.name }}
+          </main>
+        </article>
+      </template>
+
+      <template #empty>
+        <p class="text-gray-300 font-bold">Arraste e solte o arquivo aqui para preparar o upload.</p>
+      </template>
+    </FileUpload>
+  </div>
 </template>

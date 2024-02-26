@@ -41,16 +41,13 @@ async function handleAddClassToModule() {
     const uploadFormData = new FormData();
     uploadFormData.append('file', video.value);
 
-    const { data: { file } } = await api.post<{ file: { fileKey: string } }>('/files', uploadFormData, {
+    const { data: { file } } = await api.post<{ file: { id: string } }>('/files', uploadFormData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
 
-    // FIXME: Returns a 404 not found error, even though it uploaded correctly and has the correct file key
-    const { data: { video: uploadedVideo } } = await api.get<{ video: { id: string } }>(`/videos/${file.fileKey}`)
-
-    await api.post(`/modules/${moduleId}/classes/video/${uploadedVideo.id}`, {
+    await api.post(`/modules/${moduleId}/classes/video/${file.id}`, {
       ...formData,
       classNumber: parseInt(formData.classNumber),
     })
@@ -65,13 +62,15 @@ async function handleAddClassToModule() {
 
 <template>
   <FormPageTemplate title="Adicionar aula">
-    <form @submit.prevent="handleAddClassToModule" class="w-full max-w-xl flex flex-col gap-4">
-      <DefaultInput v-model="formData.name" type="text" placeholder="Nome da aula" />
-      <DefaultTextArea v-model="formData.description" type="text" placeholder="Uma breve descrição sobre a aula" />
-      <DefaultInput v-model="formData.classNumber" type="number"
+    <form @submit.prevent="handleAddClassToModule" class="w-full max-w-xl flex flex-col gap-5">
+      <DefaultInput v-model="formData.name" type="text" label="Nome da aula" placeholder="Nome da aula" />
+      <DefaultTextArea v-model="formData.description" type="text" label="Descrição da aula"
+        placeholder="Uma breve descrição sobre a aula" />
+      <DefaultInput v-model="formData.classNumber" type="number" label="Número da aula"
         placeholder="Número da aula, responsável pela ordem de exibição" />
 
-      <UploadFileInput @file-selected="handleSelectedFile" :accept-type="'video/mp4,video/x-msvideo,video/avi'" />
+      <UploadFileInput label="Vídeo da aula" @file-selected="handleSelectedFile"
+        :accept-type="'video/mp4,video/x-msvideo,video/avi'" />
 
       <DefaultButton text="Adicionar aula" :disabled="isSubmitting" />
     </form>

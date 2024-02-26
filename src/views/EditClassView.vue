@@ -61,7 +61,7 @@ async function handleEditClassDetails() {
 
   try {
     if (video.value) {
-      const { data: { file } } = await api.post<{ file: { fileKey: string } }>('/files', {
+      const { data: { file } } = await api.post<{ file: { id: string } }>('/files', {
         file: video.value
       }, {
         headers: {
@@ -69,10 +69,7 @@ async function handleEditClassDetails() {
         }
       })
 
-      // FIXME: Returns a 404 not found error, even though it uploaded correctly and has the correct file key
-      const { data: { video: uploadedVideo } } = await api.get<{ video: { id: string } }>(`/videos/${file.fileKey}`)
-
-      formData.value.videoId = uploadedVideo.id
+      formData.value.videoId = file.id
     }
 
     await api.put(`/classes/${classId}`, {
@@ -92,14 +89,14 @@ async function handleEditClassDetails() {
 
 <template>
   <FormPageTemplate title="Editar aula">
-    <form @submit.prevent="handleEditClassDetails" class="w-full max-w-xl flex flex-col gap-4">
+    <form @submit.prevent="handleEditClassDetails" class="w-full max-w-xl flex flex-col gap-5">
       <DefaultInput v-model="formData.name" type="text" label="Nome da aula" placeholder="Nome da aula" />
       <DefaultTextArea v-model="formData.description" type="text" label="Descrição da aula"
         placeholder="Uma breve descrição sobre a aula" />
       <DefaultInput v-model="formData.classNumber" type="number" label="Número da aula"
         placeholder="Número da aula, responsável pela ordem de exibição" />
 
-      <UploadFileInput @file-clear="handleClearFile" @file-selected="handleSelectedFile"
+      <UploadFileInput label="Novo vídeo da aula" @file-clear="handleClearFile" @file-selected="handleSelectedFile"
         :accept-type="'video/mp4,video/x-msvideo,video/avi'" />
 
       <DefaultButton text="Salvar" :disabled="isSubmitting" />
