@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth';
 import { ref } from 'vue';
+import DefaultButton from '../UI/DefaultButton.vue';
 import DefaultTitle from '../UI/DefaultTitle.vue';
+
+const { user, isAuthenticated, logout } = useAuthStore()
 
 const isOpen = ref(false)
 </script>
@@ -35,7 +39,17 @@ const isOpen = ref(false)
 
         <ul class="flex flex-col items-center gap-5">
           <li>
-            <button class="text-red-500">Sair</button>
+            <router-link to="/signin" v-if="!isAuthenticated">
+              <DefaultButton class="py-1 px-3" text="Entrar" />
+            </router-link>
+
+            <DefaultButton v-else class="bg-red-500 py-1 px-3" @click="logout" text="Sair" />
+          </li>
+
+          <li v-if="isAuthenticated && user?.role === 'INSTRUCTOR'">
+            <router-link to="/courses/new">
+              <DefaultButton class="py-1 px-3" text="Novo curso" />
+            </router-link>
           </li>
         </ul>
       </nav>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-    modelValue: string | number | null
+    modelValue: string | number | null | undefined
     placeholder: string,
     type: string
 }>()

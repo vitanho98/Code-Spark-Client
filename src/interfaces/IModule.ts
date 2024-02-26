@@ -2,6 +2,6 @@ export interface IModule {
   id: string,
   name: string,
   description: string,
-  moduleNumber: string,
+  moduleNumber: number,
   courseId: string
 }

@@ -2,7 +2,7 @@
 import { useAuthStore } from '@/stores/auth';
 import DefaultButton from '../UI/DefaultButton.vue';
 
-const { isAuthenticated, logout } = useAuthStore()
+const { user, isAuthenticated, logout } = useAuthStore()
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const { isAuthenticated, logout } = useAuthStore()
           <DefaultButton v-else class="bg-red-500 py-1 px-3" @click="logout" text="Sair" />
         </li>
 
-        <li>
+        <li v-if="isAuthenticated && user?.role === 'INSTRUCTOR'">
           <router-link to="/courses/new">
             <DefaultButton class="py-1 px-3" text="Novo curso" />
           </router-link>

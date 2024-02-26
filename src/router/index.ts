@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 import AddClassToModuleView from '@/views/AddClassToModuleView.vue'
 import AddModuleToCourseView from '@/views/AddModuleToCourseView.vue'
 import ClassPageView from '@/views/ClassPageView.vue'
+import EditModuleView from '@/views/EditModuleView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import RegisterCourseView from '@/views/RegisterCourseView.vue'
@@ -51,6 +52,38 @@ const router = createRouter({
           if (!instructorIsTheOwner) {
             return next({
               path: '/' // Unauthorized
+            })
+          }
+
+          return next() // OK, continue
+        } catch (err) {
+          console.error(err)
+
+          // Future 404 page
+          return next({
+            path: '/'
+          })
+        }
+      }
+    },
+
+    {
+      path: '/modules/:moduleId/edit',
+      name: 'editModuleDetails',
+      component: EditModuleView,
+      beforeEnter: async (to, from, next) => {
+        const moduleId = to.params.moduleId as string
+        const { user } = useAuthStore()
+
+        try {
+          const {data: { module }} = await api.get<{module: IModule}>(`/modules/${moduleId}`)
+          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${module.courseId}`)
+          
+          const instructorIsTheOwner = user && user.id === course.instructorId
+
+          if (!instructorIsTheOwner) {
+            return next({
+              path: '/', // Unauthorized
             })
           }
 

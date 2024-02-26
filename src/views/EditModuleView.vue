@@ -3,29 +3,49 @@ import DefaultButton from '@/components/UI/DefaultButton.vue';
 import DefaultInput from '@/components/UI/DefaultInput.vue';
 import DefaultTextArea from '@/components/UI/DefaultTextArea.vue';
 import FormPageTemplate from '@/components/UI/FormPageTemplate.vue';
+import type { IModule } from '@/interfaces/IModule';
 import { api } from '@/lib/axios';
-import { ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
-const courseId = router.currentRoute.value.params.courseId as string
+const moduleId = router.currentRoute.value.params.moduleId as string
 
 const isSubmitting = ref(false)
 
-const formData = {
+const originalModule: Ref<IModule | null> = ref(null)
+const formData = ref({
   name: '',
   description: '',
-  moduleNumber: ''
-}
+  moduleNumber: null as number | null
+})
 
-async function handleAddModuleToCourse() {
+onMounted(async () => {
+  try {
+    const { data: { module } } = await api.get<{ module: IModule }>(`/modules/${moduleId}`)
+
+    originalModule.value = module
+
+    formData.value = {
+      name: module.name ?? '',
+      description: module.description ?? '',
+      moduleNumber: module.moduleNumber ?? null,
+    }
+  } catch (err) {
+    console.error(err)
+    router.push('/') // Not found
+  }
+})
+
+async function handleEditModuleDetails() {
   isSubmitting.value = true
 
   try {
-    await api.post(`/courses/${courseId}/modules`, {
+    await api.put(`/modules/${moduleId}`, {
       ...formData,
-      moduleNumber: parseInt(formData.moduleNumber)
+      name: originalModule.value?.name !== formData.value.name ? formData.value.name : undefined,
+      moduleNumber: originalModule.value?.moduleNumber !== formData.value.moduleNumber ? Number(formData.value.moduleNumber) : undefined
     })
 
     router.push('/')
@@ -37,8 +57,8 @@ async function handleAddModuleToCourse() {
 </script>
 
 <template>
-  <FormPageTemplate title="Adicionar módulo">
-    <form @submit.prevent="handleAddModuleToCourse" class="w-full max-w-xl flex flex-col gap-4">
+  <FormPageTemplate title="Editar módulo">
+    <form @submit.prevent="handleEditModuleDetails" class="w-full max-w-xl flex flex-col gap-4">
       <DefaultInput v-model="formData.name" type="text" placeholder="Nome do módulo" />
       <DefaultTextArea v-model="formData.description" type="text" placeholder="Uma breve descrição sobre o módulo" />
       <DefaultInput v-model="formData.moduleNumber" type="number"
@@ -50,7 +70,7 @@ async function handleAddModuleToCourse() {
         registro
       </strong>
 
-      <DefaultButton text="Adicionar módulo" :disabled="isSubmitting" />
+      <DefaultButton text="Salvar" :disabled="isSubmitting" />
     </form>
   </FormPageTemplate>
 </template>
