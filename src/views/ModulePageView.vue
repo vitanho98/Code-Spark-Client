@@ -31,7 +31,7 @@ const modules: IModule[] = [
         title: 'O que vamos aprender?',
         text: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.'
     }
-    
+
 ]
 
 </script>
@@ -47,15 +47,15 @@ const modules: IModule[] = [
             <ModuleText title="Módulos" text="5 módulos cadastrados" subtitle="Módulos cadastrados no curso">
                 <ul class="py-7">
                     <li v-for="module in modules" :key="module.id">
-                        <ModulesWrapper :module = "module">
+                        <ModulesWrapper :module="module">
                         </ModulesWrapper>
                     </li>
                 </ul>
             </ModuleText>
         </section>
-        <section class="fixed">
+        <section>
             <ButtonModule text="Adicionar módulo">
             </ButtonModule>
-            </section>
+        </section>
     </div>
 </template>
