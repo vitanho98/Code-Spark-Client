@@ -7,6 +7,7 @@ import SingUpViewVue from '@/views/SingUpView.vue'
 import SingInViewVue from '@/views/SingInView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import ClassPageViewVue from '@/views/ClassPageView.vue'
+import ClassViewVue from '@/views/ClassView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/catalog',
       name: 'catalog',
       component: CatalogPageViewVue
+    },
+    {
+      path: '/classes',
+      name: 'classes',
+      component: ClassViewVue
     }
   ]
 })
