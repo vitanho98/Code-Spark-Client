@@ -10,17 +10,22 @@ import EditClassView from '@/views/EditClassView.vue'
 import EditModuleView from '@/views/EditModuleView.vue'
 import EditUserView from '@/views/EditUserView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
+import ModulePageViewVue from '@/views/ModulePageView.vue'
+import ClassPageViewVue from '@/views/ClassPageView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import RegisterCourseView from '@/views/RegisterCourseView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
+import CoursePageView from '@/views/CoursePageView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useCookies } from 'vue3-cookies'
 import HomeView from '../views/HomeView.vue'
+import CatalogPageViewVue from '@/views/CatalogPageView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  
+
   scrollBehavior() {
     return {
       top: 0
@@ -200,7 +205,7 @@ const router = createRouter({
       meta: {
         hideNavbar: true,
        },
-       beforeEnter: (_to, _from, next) => {
+      beforeEnter: () => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
@@ -208,9 +213,9 @@ const router = createRouter({
             path: '/'
           })
         }
-
         return next()
        }
+      }
     },
 
     {
@@ -239,7 +244,26 @@ const router = createRouter({
     {
       path: '/classpage',
       name: 'classpage',
-      component: ClassPageView
+
+      component: ClassPageViewVue
+    },
+      
+    {
+      path: '/modules',
+      name: 'modules',
+      component: ModulePageViewVue
+    },
+      
+    {
+      path: '/catalog',
+      name: 'catalog',
+      component: CatalogPageViewVue
+    },
+      
+    {
+      path: '/coursepage',
+      name: 'coursepage',
+      component: CoursePageView
     }
   ]
 })
