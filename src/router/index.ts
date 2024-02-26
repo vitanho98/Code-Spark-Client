@@ -1,24 +1,20 @@
 import { useAuthStore } from '@/stores/auth'
-import ClassPageView from '@/views/ClassPageView.vue'
-import EnrollCourseView from '@/views/EnrollCourseView.vue'
 
+import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import CatalogPageViewVue from '@/views/CatalogPageView.vue'
 import ModulePageViewVue from '@/views/ModulePageView.vue'
-import SingUpViewVue from '@/views/SingUpView.vue'
-import SingInViewVue from '@/views/SingInView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import ClassPageViewVue from '@/views/ClassPageView.vue'
-
-import ProfileViewVue from '@/views/ProfileView.vue'
-import SignInView from '@/views/SignInView.vue'
-import SignUpView from '@/views/SignUpView.vue'
+import ClassViewVue from '@/views/ClassView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import SignUpViewVue from '@/views/SignUpView.vue'
+import SignInViewVue from '@/views/SignInView.vue'
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  
+
   scrollBehavior() {
     return {
       top: 0
@@ -39,11 +35,11 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: SignUpView,
+      component: SignUpViewVue,
       meta: {
         hideNavbar: true,
-       },
-       beforeEnter: () => {
+      },
+      beforeEnter: () => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
@@ -51,16 +47,16 @@ const router = createRouter({
             name: 'home'
           }
         }
-       }
+      }
     },
     {
       path: '/signin',
       name: 'signin',
-      component: SignInView,
+      component: SignInViewVue,
       meta: {
         hideNavbar: true,
-       },
-       beforeEnter: () => {
+      },
+      beforeEnter: () => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
@@ -68,7 +64,7 @@ const router = createRouter({
             name: 'home'
           }
         }
-       }
+      }
     },
     {
       path: '/profile',
@@ -91,7 +87,11 @@ const router = createRouter({
       name: 'catalog',
       component: CatalogPageViewVue
 
-      component: ClassPageView
+    },
+    {
+      path: '/classes',
+      name: 'classes',
+      component: ClassViewVue
 
     }
   ]
