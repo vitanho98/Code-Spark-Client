@@ -38,13 +38,13 @@ const modules: IModule[] = [
 
 <template>
     <div class="flex justify-between">
-        <section class="">
+        <section>
             <ModuleBar>
             </ModuleBar>
         </section>
 
         <section class="pr-60 py-32">
-            <ModuleText text="5 módulos cadastrados">
+            <ModuleText title="Módulos" text="5 módulos cadastrados" subtitle="Módulos cadastrados no curso">
                 <ul class="py-7">
                     <li v-for="module in modules" :key="module.id">
                         <ModulesWrapper :module = "module">
