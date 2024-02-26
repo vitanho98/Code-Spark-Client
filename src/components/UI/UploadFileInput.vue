@@ -3,11 +3,16 @@ import FileUpload, { type FileUploadSelectEvent } from 'primevue/fileupload';
 import 'primevue/resources/themes/aura-dark-green/theme.css';
 
 const emit = defineEmits<{
-  "file-selected": [value: FileUploadSelectEvent]
+  "file-selected": [value: FileUploadSelectEvent],
+  "file-clear": [],
 }>()
 
 function handleFileSelected(event: FileUploadSelectEvent) {
   emit('file-selected', event)
+}
+
+function handleRemoveFile() {
+  emit('file-clear')
 }
 
 defineProps<{
@@ -18,7 +23,8 @@ defineProps<{
 <template>
   <FileUpload name="file" :auto="false" :show-upload-button="false" :cancel-label="'Remover'"
     :invalid-file-type-message="'Formato inválido, formatos aceitos: JPEG e PNG para imagem, MP4 e AVI para vídeo'"
-    :accept="acceptType" :multiple="false" :file-limit="1" :choose-label="'Buscar'" @select="handleFileSelected">
+    :accept="acceptType" :multiple="false" :file-limit="1" :choose-label="'Buscar'" @clear="handleRemoveFile"
+    @select="handleFileSelected">
     <template #content="{ files: [file] }">
       <article class="flex flex-col gap-5" v-if="file">
         <header>

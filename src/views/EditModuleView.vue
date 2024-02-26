@@ -43,8 +43,8 @@ async function handleEditModuleDetails() {
 
   try {
     await api.put(`/modules/${moduleId}`, {
-      ...formData,
       name: originalModule.value?.name !== formData.value.name ? formData.value.name : undefined,
+      description: originalModule.value?.description !== formData.value.description ? formData.value.description : undefined,
       moduleNumber: originalModule.value?.moduleNumber !== formData.value.moduleNumber ? Number(formData.value.moduleNumber) : undefined
     })
 
@@ -59,9 +59,10 @@ async function handleEditModuleDetails() {
 <template>
   <FormPageTemplate title="Editar módulo">
     <form @submit.prevent="handleEditModuleDetails" class="w-full max-w-xl flex flex-col gap-4">
-      <DefaultInput v-model="formData.name" type="text" placeholder="Nome do módulo" />
-      <DefaultTextArea v-model="formData.description" type="text" placeholder="Uma breve descrição sobre o módulo" />
-      <DefaultInput v-model="formData.moduleNumber" type="number"
+      <DefaultInput v-model="formData.name" type="text" label="Nome do módulo" placeholder="Nome do módulo" />
+      <DefaultTextArea v-model="formData.description" type="text" label="Descrição do módulo"
+        placeholder="Uma breve descrição sobre o módulo" />
+      <DefaultInput v-model="formData.moduleNumber" type="number" label="Número do módulo"
         placeholder="Número do módulo, responsável pela ordem de exibição" />
 
       <strong class="text-center my-4">

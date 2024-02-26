@@ -1,3 +1,4 @@
+import type { IClass } from '@/interfaces/IClass'
 import type { ICourse } from '@/interfaces/ICourse'
 import type { IModule } from '@/interfaces/IModule'
 import { api } from '@/lib/axios'
@@ -5,6 +6,7 @@ import { useAuthStore } from '@/stores/auth'
 import AddClassToModuleView from '@/views/AddClassToModuleView.vue'
 import AddModuleToCourseView from '@/views/AddModuleToCourseView.vue'
 import ClassPageView from '@/views/ClassPageView.vue'
+import EditClassView from '@/views/EditClassView.vue'
 import EditModuleView from '@/views/EditModuleView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
@@ -109,6 +111,39 @@ const router = createRouter({
 
         try {
           const {data: { module }} = await api.get<{module: IModule}>(`/modules/${moduleId}`)
+          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${module.courseId}`)
+
+          const instructorIsTheOwner = user && user.id === course.instructorId
+
+          if (!instructorIsTheOwner) {
+            return next({
+              path: '/' // Unauthorized
+            })
+          }
+
+          return next() // OK, continue
+        } catch (err) {
+          console.error(err)
+
+          // Future 404 page
+          return next({
+            path: '/'
+          })
+        }
+      }
+    },
+
+    {
+      path: '/classes/:classId/edit',
+      name: 'editClassDetails',
+      component: EditClassView,
+      beforeEnter: async (to, from, next) => {
+        const classId = to.params.classId as string
+        const { user } = useAuthStore()
+
+        try {
+          const {data: { class: classFound }} = await api.get<{class: IClass}>(`/classes/${classId}`)
+          const {data: { module }} = await api.get<{module: IModule}>(`/modules/${classFound.moduleId}`)
           const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${module.courseId}`)
 
           const instructorIsTheOwner = user && user.id === course.instructorId

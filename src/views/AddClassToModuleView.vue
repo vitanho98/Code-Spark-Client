@@ -67,7 +67,7 @@ async function handleAddClassToModule() {
   <FormPageTemplate title="Adicionar aula">
     <form @submit.prevent="handleAddClassToModule" class="w-full max-w-xl flex flex-col gap-4">
       <DefaultInput v-model="formData.name" type="text" placeholder="Nome da aula" />
-      <DefaultTextArea v-model="formData.description" type="text" placeholder="Uma breve descrição sobre o aula" />
+      <DefaultTextArea v-model="formData.description" type="text" placeholder="Uma breve descrição sobre a aula" />
       <DefaultInput v-model="formData.classNumber" type="number"
         placeholder="Número da aula, responsável pela ordem de exibição" />
 
