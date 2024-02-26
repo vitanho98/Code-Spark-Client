@@ -6,8 +6,10 @@ import ClassPageViewVue from '@/views/ClassPageView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
+import CoursePageView from '@/views/CoursePageView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import CatalogPageViewVue from '@/views/CatalogPageView.vue'
 
 
 const router = createRouter({
@@ -83,8 +85,13 @@ const router = createRouter({
     {
       path: '/catalog',
       name: 'catalog',
-      component: ClassPageView
+      component: CatalogPageViewVue
 
+    },
+    {
+      path: '/coursepage',
+      name: 'coursepage',
+      component: CoursePageView
     }
   ]
 })
