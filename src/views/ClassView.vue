@@ -111,25 +111,32 @@ const tables: ITable[] = [
 </script>
 
 <template>
-<div class="flex justify-between">
-    <section>
-        <ModuleBar>
-        </ModuleBar>
-    </section>
-    
-    <section class="pr-60 py-32">
-        
-        <ModuleText title="Aulas" text="20 aulas registradas" subtitle="Aulas cadastradas no curso">
-    
-        </ModuleText>
+    <div class="flex justify-between">
+        <section>
+            <ModuleBar>
+            </ModuleBar>
+        </section>
+
+        <section class="pl-120 pr-20 py-32 min-w-full">
+
+            <ModuleText title="Aulas" text="20 aulas registradas" subtitle="Aulas cadastradas no curso">
+            </ModuleText>
 
             <TableClass class="py-7">
-            <tr v-for="table in tables " :key="table.id">
-                <td class="border">{{ table.name }}</td>
-                <td class="border">{{ table.module }}</td>
-            </tr>
-        </TableClass>
-    
-    </section>
-</div>
+                <tr v-for="table in tables " :key="table.id">
+                    <td class="border border-solid border-gray-500 text-lg font-medium text-gray-300 py-2">{{
+                        table.name }}
+                    </td>
+                    <td class="border border-solid border-gray-500 text-lg font-medium text-gray-300 py-2">{{
+                        table.module
+                    }}</td>
+                </tr>
+            </TableClass>
+        </section>
+
+        <section>
+            <ButtonModule text="Adicionar aula">
+            </ButtonModule>
+        </section>
+    </div>
 </template>
