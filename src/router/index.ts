@@ -1,14 +1,8 @@
 import { useAuthStore } from '@/stores/auth'
 import ClassPageView from '@/views/ClassPageView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
-
-import CatalogPageViewVue from '@/views/CatalogPageView.vue'
 import ModulePageViewVue from '@/views/ModulePageView.vue'
-import SingUpViewVue from '@/views/SingUpView.vue'
-import SingInViewVue from '@/views/SingInView.vue'
-import ProfileViewVue from '@/views/ProfileView.vue'
 import ClassPageViewVue from '@/views/ClassPageView.vue'
-
 import ProfileViewVue from '@/views/ProfileView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
@@ -18,7 +12,7 @@ import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  
+
   scrollBehavior() {
     return {
       top: 0
@@ -42,8 +36,8 @@ const router = createRouter({
       component: SignUpView,
       meta: {
         hideNavbar: true,
-       },
-       beforeEnter: () => {
+      },
+      beforeEnter: () => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
@@ -51,7 +45,7 @@ const router = createRouter({
             name: 'home'
           }
         }
-       }
+      }
     },
     {
       path: '/signin',
@@ -59,8 +53,8 @@ const router = createRouter({
       component: SignInView,
       meta: {
         hideNavbar: true,
-       },
-       beforeEnter: () => {
+      },
+      beforeEnter: () => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
@@ -68,7 +62,7 @@ const router = createRouter({
             name: 'home'
           }
         }
-       }
+      }
     },
     {
       path: '/profile',
@@ -89,8 +83,6 @@ const router = createRouter({
     {
       path: '/catalog',
       name: 'catalog',
-      component: CatalogPageViewVue
-
       component: ClassPageView
 
     }

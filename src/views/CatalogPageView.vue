@@ -6,7 +6,7 @@ import TagCourse from '@/components/UI/TagCourse.vue';
 import SearchBar from '@/components/UI/SearchBar.vue'
 import { type ICourse } from '@/interfaces/ICourse';
 import { type ITag } from '@/interfaces/ITag';
-
+import type { ICourseWithInstructorAndEvaluationsAverage } from '@/interfaces/ICourseWithInstructorAndEvaluationsAverage';
 
 const tags: ITag[] = [
     {
@@ -44,61 +44,8 @@ const tags: ITag[] = [
 
 ]
 
-const courses: ICourse[] = [
-    {
-        id: 1,
-        title: 'Curso HTML topzera',
-        instructor: {
-            name: 'Deus Guanabara',
-        },
-        evaluationAverage: 4.2,
-        coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-    },
-    {
-        id: 2,
-        title: 'Curso HTML topzera',
-        instructor: {
-            name: 'Deus Guanabara',
-        },
-        evaluationAverage: 5,
-        coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-    },
-    {
-        id: 3,
-        title: 'Curso HTML topzera',
-        instructor: {
-            name: 'Deus Guanabara',
-        },
-        evaluationAverage: 5,
-        coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-    },
-    {
-        id: 4,
-        title: 'Curso HTML topzera',
-        instructor: {
-            name: 'Deus Guanabara',
-        },
-        evaluationAverage: 5,
-        coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-    },
-    {
-        id: 5,
-        title: 'Curso HTML topzera',
-        instructor: {
-            name: 'Deus Guanabara',
-        },
-        evaluationAverage: 5,
-        coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-    },
-    {
-        id: 6,
-        title: 'Curso HTML topzera',
-        instructor: {
-            name: 'Deus Guanabara',
-        },
-        evaluationAverage: 3,
-        coverImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
-    }
+const courses: ICourseWithInstructorAndEvaluationsAverage[] = [
+
 ]
 </script>
 
@@ -128,7 +75,7 @@ const courses: ICourse[] = [
                     <div class="w-full">
                         <SearchBar text="O que você quer aprender?"></SearchBar>
                         <DefaultList :centered="true" class="py-10">
-                            <li v-for="course in courses" :key="course.id">
+                            <li v-for="course in courses" :key="course.course.id">
                                 <CourseCard :course="course" />
                             </li>
                         </DefaultList>
