@@ -67,7 +67,7 @@ const courses: ICourseWithInstructorAndEvaluationsAverage[] = []
                 </header>
 
                 <DefaultList :centered="true">
-                    <li v-for="course in courses" :key="course.course.id">
+                    <li class="w-full xs:w-auto" v-for="course in courses" :key="course.course.id">
                         <CourseCard :course="course" />
                     </li>
                 </DefaultList>

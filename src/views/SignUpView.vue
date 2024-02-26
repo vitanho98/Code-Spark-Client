@@ -5,7 +5,7 @@ import DefaultTextArea from '@/components/UI/DefaultTextArea.vue';
 import { api } from '@/lib/axios';
 import router from '@/router';
 import RadioButton from 'primevue/radiobutton';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const isAStudent = ref(true)
 const isSubmitting = ref(false)
@@ -15,7 +15,9 @@ const formData = {
     email: '',
     password: '',
     cpf: '',
-    role: isAStudent.value ? 'STUDENT' : 'INSTRUCTOR',
+    role: computed(() => {
+        return isAStudent.value ? 'STUDENT' : 'INSTRUCTOR'
+    }),
     age: '' as string,
     summary: ''
 }
@@ -26,6 +28,7 @@ async function handleRegisterUser() {
     try {
         await api.post('/users', {
             ...formData,
+            role: formData.role.value,
             age: parseInt(formData.age)
         })
 
@@ -51,7 +54,7 @@ async function handleRegisterUser() {
 
         <div
             class="w-full h-min p-10 md:p-4 rounded md:w-1/2 md:h-full flex flex-col items-center justify-center gap-4 z-50">
-            <form @submit.prevent="handleRegisterUser" class="w-full max-w-xl flex flex-col gap-4">
+            <form @submit.prevent="handleRegisterUser" class="w-full max-w-xl flex flex-col gap-5">
                 <DefaultInput v-model="formData.name" required type="text" placeholder="Digite seu nome" />
                 <DefaultInput v-model="formData.email" required type="email" placeholder="Digite seu email" />
                 <DefaultInput v-model="formData.password" required type="password" placeholder="Digite sua senha" />

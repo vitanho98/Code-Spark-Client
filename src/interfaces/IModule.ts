@@ -1,5 +1,7 @@
 export interface IModule {
-    id: number,
-    text: string,
-    title: string
+  id: string,
+  name: string,
+  description: string,
+  moduleNumber: number,
+  courseId: string
 }

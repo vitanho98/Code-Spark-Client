@@ -48,7 +48,7 @@ export default {
         <!-- Authentication is required to get this data, so for now we will use the recent courses -->
         <ContentListWrapper title="Continue de onde parou">
           <DefaultList class="justify-center xl:justify-start">
-            <li v-for="course in courses" :key="course.course.id">
+            <li class="w-full xs:w-auto" v-for="course in courses" :key="course.course.id">
               <CourseCard :course="course" />
             </li>
           </DefaultList>
@@ -56,7 +56,7 @@ export default {
 
         <ContentListWrapper title="Cursos recentes">
           <DefaultList class="justify-center xl:justify-start">
-            <li v-for="course in courses" :key="course.course.id">
+            <li class="w-full xs:w-auto" v-for="course in courses" :key="course.course.id">
               <CourseCard :course="course" />
             </li>
           </DefaultList>
