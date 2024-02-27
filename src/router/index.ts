@@ -1,6 +1,7 @@
 import type { IClass } from '@/interfaces/IClass'
 import type { ICourse } from '@/interfaces/ICourse'
 import type { IModule } from '@/interfaces/IModule'
+import DashboardView from '@/views/DashboardView.vue'
 import { api } from '@/lib/axios'
 import { useAuthStore } from '@/stores/auth'
 import AddClassToModuleView from '@/views/AddClassToModuleView.vue'
