@@ -14,14 +14,17 @@ import ModulePageViewVue from '@/views/ModulePageView.vue'
 import ClassPageViewVue from '@/views/ClassPageView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import RegisterCourseView from '@/views/RegisterCourseView.vue'
-import SignInView from '@/views/SignInView.vue'
-import SignUpView from '@/views/SignUpView.vue'
-import CoursePageView from '@/views/CoursePageView.vue'
+import CatalogPageView from '@/views/CatalogPageView.vue'
+import ModulePageView from '@/views/ModulePageView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import ClassViewVue from '@/views/ClassView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useCookies } from 'vue3-cookies'
 import HomeView from '../views/HomeView.vue'
-import CatalogPageViewVue from '@/views/CatalogPageView.vue'
-import ClassViewVue from '@/views/ClassView.vue'
+import SignUpView from '@/views/SignUpView.vue'
+import SignInView from '@/views/SignInView.vue'
+import CoursePageView from '@/views/CoursePageView.vue'
+
 
 
 const router = createRouter({
@@ -55,7 +58,7 @@ const router = createRouter({
         const { user } = useAuthStore()
 
         try {
-          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${courseId}`)
+          const { data: { course } } = await api.get<{ course: ICourse }>(`/courses/${courseId}`)
           const instructorIsTheOwner = user && user.id === course.instructorId
 
           if (!instructorIsTheOwner) {
@@ -85,9 +88,9 @@ const router = createRouter({
         const { user } = useAuthStore()
 
         try {
-          const {data: { module }} = await api.get<{module: IModule}>(`/modules/${moduleId}`)
-          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${module.courseId}`)
-          
+          const { data: { module } } = await api.get<{ module: IModule }>(`/modules/${moduleId}`)
+          const { data: { course } } = await api.get<{ course: ICourse }>(`/courses/${module.courseId}`)
+
           const instructorIsTheOwner = user && user.id === course.instructorId
 
           if (!instructorIsTheOwner) {
@@ -117,8 +120,8 @@ const router = createRouter({
         const { user } = useAuthStore()
 
         try {
-          const {data: { module }} = await api.get<{module: IModule}>(`/modules/${moduleId}`)
-          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${module.courseId}`)
+          const { data: { module } } = await api.get<{ module: IModule }>(`/modules/${moduleId}`)
+          const { data: { course } } = await api.get<{ course: ICourse }>(`/courses/${module.courseId}`)
 
           const instructorIsTheOwner = user && user.id === course.instructorId
 
@@ -149,9 +152,9 @@ const router = createRouter({
         const { user } = useAuthStore()
 
         try {
-          const {data: { class: classFound }} = await api.get<{class: IClass}>(`/classes/${classId}`)
-          const {data: { module }} = await api.get<{module: IModule}>(`/modules/${classFound.moduleId}`)
-          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${module.courseId}`)
+          const { data: { class: classFound } } = await api.get<{ class: IClass }>(`/classes/${classId}`)
+          const { data: { module } } = await api.get<{ module: IModule }>(`/modules/${classFound.moduleId}`)
+          const { data: { course } } = await api.get<{ course: ICourse }>(`/courses/${module.courseId}`)
 
           const instructorIsTheOwner = user && user.id === course.instructorId
 
@@ -185,8 +188,8 @@ const router = createRouter({
       component: SignUpView,
       meta: {
         hideNavbar: true,
-       },
-       beforeEnter: (_to, _from, next) => {
+      },
+      beforeEnter: (_to, _from, next) => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
@@ -196,7 +199,7 @@ const router = createRouter({
         }
 
         return next()
-       }
+      }
     },
 
     {
@@ -205,7 +208,7 @@ const router = createRouter({
       component: SignInView,
       meta: {
         hideNavbar: true,
-       },
+      },
       beforeEnter: () => {
         const { isAuthenticated } = useAuthStore()
 
@@ -215,70 +218,72 @@ const router = createRouter({
           })
         }
         return next()
-       }
       }
     },
-
-    {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileViewVue
     },
 
-    {
-      path: '/profile/edit',
-      name: 'editAuthenticatedUser',
-      component: EditUserView,
-      beforeEnter: (_to, _from, next) => {
-        const { isAuthenticated } = useAuthStore()
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView
+  },
 
-        if (!isAuthenticated) {
-          return next({
-            path: '/' // Not authenticated
-          })
-        }
+  {
+    path: '/profile/edit',
+    name: 'editAuthenticatedUser',
+    component: EditUserView,
+    beforeEnter: (_to, _from, next) => {
+      const { isAuthenticated } = useAuthStore()
 
-        return next()
-       }
-    },
+      if (!isAuthenticated) {
+        return next({
+          path: '/' // Not authenticated
+        })
+      }
 
-    {
-      path: '/classpage',
-      name: 'classpage',
-
-      component: ClassPageViewVue
-    },
-      
-    {
-      path: '/modules',
-      name: 'modules',
-      component: ModulePageViewVue
-    },
-      
-    {
-      path: '/catalog',
-      name: 'catalog',
-      component: CatalogPageViewVue
-    },
-      
-    {
-      path: '/coursepage',
-      name: 'coursepage',
-      component: CoursePageView
-    },
-    {
-      path: '/classes',
-      name: 'classes',
-      component: ClassViewVue
-      
+      return next()
     }
+  },
+
+  {
+    path: '/classpage',
+    name: 'classpage',
+    component: ClassPageView
+  },
+
+  {
+    path: '/modules',
+    name: 'modules',
+    component: ModulePageView
+  },
+
+  {
+    path: '/catalog',
+    name: 'catalog',
+    component: CatalogPageViewVue
+  },
+  {
+    path: '/coursepage',
+    name: 'coursepage',
+    component: CoursePageView
+  },
+  {
+    path: '/classes',
+    name: 'classes',
+    component: ClassViewVue
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: DashboardView,
+  }
   ]
 })
 
 router.beforeEach(async () => {
   const { getAuthenticatedUserData } = useAuthStore()
   const { cookies } = useCookies()
-  
+
   const cookie = cookies.get('spark.accesstoken')
 
   if (cookie) {
