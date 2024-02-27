@@ -21,6 +21,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useCookies } from 'vue3-cookies'
 import HomeView from '../views/HomeView.vue'
 import CatalogPageViewVue from '@/views/CatalogPageView.vue'
+import ClassViewVue from '@/views/ClassView.vue'
 
 
 const router = createRouter({
@@ -264,6 +265,12 @@ const router = createRouter({
       path: '/coursepage',
       name: 'coursepage',
       component: CoursePageView
+    },
+    {
+      path: '/classes',
+      name: 'classes',
+      component: ClassViewVue
+      
     }
   ]
 })
