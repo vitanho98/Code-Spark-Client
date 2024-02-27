@@ -37,11 +37,40 @@ const tags: ITag[] = [
 
 const modules: IModule[] = [
     {
+
+        id: 1,
+        name: 'O que vamos aprender?',
+        description: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.',
+        moduleNumber: 1,
+        courseId: 'bjdjh'
+    },
+    {
+        id: 2,
+        name: 'O que vamos aprender?',
+        description: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.',
+        moduleNumber: 1,
+        courseId: 'bjdjh'
+    },
+    {
+        id: 3,
+        name: 'O que vamos aprender?',
+        description: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.',
+        moduleNumber: 1,
+        courseId: 'bjdjh'
+    },
+    {
+        id: 4,
+        name: 'O que vamos aprender?',
+        description: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.',
+        moduleNumber: 1,
+        courseId: 'bjdjh'
+
         id: '1',
         name: 'Module 01',
         description: 'dawdawdawdawd',
         courseId: 'dwadaw',
         moduleNumber: 1
+
     }
 ]
 </script>
@@ -62,7 +91,7 @@ const modules: IModule[] = [
                 <ul class="flex flex-col gap-4">
                     <li v-for="module in modules" :key="module.id"
                         class="flex flex-col bg-gray-800 max-w-4xl p-5 gap-2 relative rounded">
-                        <ModuleWrapper :module="module"></ModuleWrapper>
+                        <ModuleWrapper :editable="false" :module="module"></ModuleWrapper>
                         <i
                             class="pi pi-check-circle text-2xl absolute -translate-x-1/2 -translate-y-1/2 top-1/2 -right-7"></i>
                     </li>
