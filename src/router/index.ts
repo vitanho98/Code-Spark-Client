@@ -1,15 +1,17 @@
 import { useAuthStore } from '@/stores/auth'
-
+import DashboardView from '@/views/DashboardView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
-import CatalogPageViewVue from '@/views/CatalogPageView.vue'
-import ModulePageViewVue from '@/views/ModulePageView.vue'
-import ProfileViewVue from '@/views/ProfileView.vue'
-import ClassPageViewVue from '@/views/ClassPageView.vue'
+import CatalogPageView from '@/views/CatalogPageView.vue'
+import ModulePageView from '@/views/ModulePageView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 import ClassViewVue from '@/views/ClassView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import SignUpViewVue from '@/views/SignUpView.vue'
-import SignInViewVue from '@/views/SignInView.vue'
+import SignUpView from '@/views/SignUpView.vue'
+import SignInView from '@/views/SignInView.vue'
+import ClassPageView from '@/views/ClassPageView.vue'
+import CoursePageView from '@/views/CoursePageView.vue'
+
 
 
 const router = createRouter({
@@ -35,7 +37,7 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: SignUpViewVue,
+      component: SignUpView,
       meta: {
         hideNavbar: true,
       },
@@ -52,7 +54,7 @@ const router = createRouter({
     {
       path: '/signin',
       name: 'signin',
-      component: SignInViewVue,
+      component: SignInView,
       meta: {
         hideNavbar: true,
       },
@@ -69,30 +71,38 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileViewVue
+      component: ProfileView
     },
     {
       path: '/classpage',
       name: 'classpage',
-
-      component: ClassPageViewVue
+      component: ClassPageView
     },
     {
       path: '/modules',
       name: 'modules',
-      component: ModulePageViewVue
+      component: ModulePageView
     },
     {
       path: '/catalog',
       name: 'catalog',
-      component: CatalogPageViewVue
+      component: CatalogPageView
 
+    },
+    {
+      path: '/coursepage',
+      name: 'coursepage',
+      component: CoursePageView
     },
     {
       path: '/classes',
       name: 'classes',
       component: ClassViewVue
-
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardView,
     }
   ]
 })
