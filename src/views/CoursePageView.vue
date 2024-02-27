@@ -1,49 +1,43 @@
 <script setup lang="ts">
-import { type ITag } from '@/interfaces/ITag';
-import TagCourse from '@/components/UI/TagCourse.vue';
-import ProgressBar from 'primevue/progressbar';
 import ModuleWrapper from '@/components/UI/ModuleWrapper.vue';
-import { type IModule } from '@/interfaces/IModule';
+import TagsCarousel from '@/components/UI/TagsCarousel.vue';
+import type { IModule } from '@/interfaces/IModule';
+import type { ITag } from '@/interfaces/ITag';
+import ProgressBar from 'primevue/progressbar';
 
 const courseImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFh7xCIGCSBN8__k96Si5eSvu9ghDpcGF2g&usqp=CAU'
 
 const tags: ITag[] = [
     {
-        id: 1,
-        name: 'Javascript'
+        id: '1',
+        value: 'TYPESCRIPT',
+        addedAt: new Date(2016)
     },
     {
-        id: 2,
-        name: 'Javascript'
+        id: '1',
+        value: 'TYPESCRIPT',
+        addedAt: new Date(2016)
     },
     {
-        id: 3,
-        name: 'Javascript'
+        id: '1',
+        value: 'TYPESCRIPT',
+        addedAt: new Date(2016)
     },
     {
-        id: 4,
-        name: 'Javascript'
+        id: '1',
+        value: 'TYPESCRIPT',
+        addedAt: new Date(2016)
     },
     {
-        id: 5,
-        name: 'Javascript'
+        id: '1',
+        value: 'TYPESCRIPT',
+        addedAt: new Date(2016)
     },
-    {
-        id: 6,
-        name: 'Javascript'
-    },
-    {
-        id: 7,
-        name: 'Javascript'
-    },
-    {
-        id: 8,
-        name: 'Javascript'
-    }
 ]
 
 const modules: IModule[] = [
     {
+
         id: 1,
         name: 'O que vamos aprender?',
         description: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.',
@@ -70,8 +64,14 @@ const modules: IModule[] = [
         description: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.',
         moduleNumber: 1,
         courseId: 'bjdjh'
-    }
 
+        id: '1',
+        name: 'Module 01',
+        description: 'dawdawdawdawd',
+        courseId: 'dwadaw',
+        moduleNumber: 1
+
+    }
 ]
 </script>
 
@@ -81,11 +81,8 @@ const modules: IModule[] = [
             <img class="w-full h-96 rounded object-cover" :src="courseImg" alt="Imagem do curso">
             <div class="flex flex-col gap-2">
                 <h1 class="text-2xl font-semibold">HTML5 + CSS3</h1>
-                <ul class="flex gap-2 pt-3">
-                    <li v-for="tag in tags" :key="tag.id">
-                        <TagCourse :tag="tag"></TagCourse>
-                    </li>
-                </ul>
+
+                <TagsCarousel :tags="tags" />
             </div>
         </header>
 

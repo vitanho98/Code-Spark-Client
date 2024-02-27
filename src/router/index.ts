@@ -5,19 +5,20 @@ import { api } from '@/lib/axios'
 import { useAuthStore } from '@/stores/auth'
 import AddClassToModuleView from '@/views/AddClassToModuleView.vue'
 import AddModuleToCourseView from '@/views/AddModuleToCourseView.vue'
-import ClassPageView from '@/views/ClassPageView.vue'
+import CoursePageView from '@/views/CoursePageView.vue'
 import EditClassView from '@/views/EditClassView.vue'
 import EditModuleView from '@/views/EditModuleView.vue'
 import EditUserView from '@/views/EditUserView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
-import ModulePageViewVue from '@/views/ModulePageView.vue'
-import ClassPageViewVue from '@/views/ClassPageView.vue'
+import ModulePageView from '@/views/ModulePageView.vue'
 import ProfileViewVue from '@/views/ProfileView.vue'
 import RegisterCourseView from '@/views/RegisterCourseView.vue'
 import CatalogPageView from '@/views/CatalogPageView.vue'
 import ModulePageView from '@/views/ModulePageView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import ClassViewVue from '@/views/ClassView.vue'
+import SignInView from '@/views/SignInView.vue'
+import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useCookies } from 'vue3-cookies'
 import HomeView from '../views/HomeView.vue'
@@ -180,6 +181,28 @@ const router = createRouter({
       path: '/courses/:courseId/enroll',
       name: 'enroll',
       component: EnrollCourseView,
+      beforeEnter: (async (to, from, next) => {
+        const { user } = useAuthStore()
+        const courseId = to.params.courseId as string
+
+        try {
+          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${courseId}`)
+          const userIsTheOwner = user && user.id === course.instructorId
+          
+          if (userIsTheOwner) {
+            return next({
+              path: `/courses/${courseId}/dashboard`
+            })
+          }
+
+          return next()
+        } catch (err) {
+          console.error(err)
+          return next({
+            path: '/'
+          })
+        }
+      })
     },
 
     {
@@ -210,6 +233,8 @@ const router = createRouter({
         hideNavbar: true,
       },
       beforeEnter: () => {
+       },
+      beforeEnter: (_from, _to, next) => {
         const { isAuthenticated } = useAuthStore()
 
         if (isAuthenticated) {
@@ -220,6 +245,13 @@ const router = createRouter({
         return next()
       }
     },
+       }
+      },
+
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileViewVue
     },
 
   {
@@ -251,6 +283,7 @@ const router = createRouter({
     component: ClassPageView
   },
 
+
   {
     path: '/modules',
     name: 'modules',
@@ -277,6 +310,33 @@ const router = createRouter({
     name: 'dashboard',
     component: DashboardView,
   }
+
+      component: ClassPageViewVue
+    },
+      
+    {
+      path: '/modules',
+      name: 'modules',
+      component: ModulePageView
+    },
+      
+    {
+      path: '/catalog',
+      name: 'catalog',
+      component: CatalogPageViewVue
+    },
+      
+    {
+      path: '/coursepage',
+      name: 'coursepage',
+      component: CoursePageView
+    },
+    {
+      path: '/classes',
+      name: 'classes',
+      component: ClassViewVue
+      
+    }
   ]
 })
 

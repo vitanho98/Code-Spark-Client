@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-    text: string
+    text: 'ESTUDANTE' | 'INSTRUTOR'
 }>()
 </script>
 
