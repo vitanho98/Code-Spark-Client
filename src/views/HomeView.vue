@@ -3,8 +3,11 @@ import ContentListWrapper from '@/components/UI/ContentListWrapper.vue';
 import CourseCard from '@/components/UI/CourseCard.vue';
 import DefaultList from '@/components/UI/DefaultList.vue';
 import DefaultTitle from '@/components/UI/DefaultTitle.vue';
+import EmptyList from '@/components/UI/EmptyList.vue';
 import type { ICourseWithInstructorAndEvaluationsAverage } from '@/interfaces/ICourseWithInstructorAndEvaluationsAverage';
-import { api } from '@/lib/axios';
+import { fetchInstructorCourses } from '@/services/fetchInstructorCourses';
+import { fetchRecentCourses } from '@/services/fetchRecentCourses';
+import { fetchStudentCourses } from '@/services/fetchStudentCourses';
 import { useAuthStore } from '@/stores/auth';
 
 export default {
@@ -13,6 +16,7 @@ export default {
     ContentListWrapper,
     DefaultList,
     CourseCard,
+    EmptyList
   },
 
   data() {
@@ -41,18 +45,15 @@ export default {
 
   methods: {
     async fetchRecentCourses() {
-      const response = await api.get<{ courses: ICourseWithInstructorAndEvaluationsAverage[] }>('/courses')
-      this.recentCourses = response.data.courses
+      this.recentCourses = await fetchRecentCourses()
     },
 
     async fetchStudentCourses(studentId: string) {
-      const response = await api.get<{ courses: ICourseWithInstructorAndEvaluationsAverage[] }>(`/students/${studentId}/enrollments`)
-      this.studentCourses = response.data.courses
+      this.studentCourses = await fetchStudentCourses(studentId)
     },
 
     async fetchInstructorCourses(instructorId: string) {
-      const response = await api.get<{ courses: ICourseWithInstructorAndEvaluationsAverage[] }>(`/instructors/${instructorId}/courses`)
-      this.instructorCourses = response.data.courses
+      this.instructorCourses = await fetchInstructorCourses(instructorId)
     },
   }
 }
@@ -81,11 +82,13 @@ export default {
         </ContentListWrapper>
 
         <ContentListWrapper title="Cursos recentes">
-          <DefaultList class="justify-center xl:justify-start">
+          <DefaultList v-if="recentCourses.length > 0" class="justify-center xl:justify-start">
             <li class="w-full xs:w-auto" v-for="course in recentCourses" :key="course.course.id">
               <CourseCard :course="course" />
             </li>
           </DefaultList>
+
+          <EmptyList v-else />
         </ContentListWrapper>
       </main>
     </article>
