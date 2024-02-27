@@ -4,41 +4,7 @@ import Evaluation from '@/components/UI/Evaluation.vue';
 import type { IClass } from '@/interfaces/IClass';
 
 const classes: IClass[] = [
-  {
-    id: 1,
-    name: "Aula 01",
-    completed: true,
-  },
-  {
-    id: 2,
-    name: "Aula 02",
-    completed: false,
-  },
-  {
-    id: 3,
-    name: "Aula 03",
-    completed: false,
-  },
-  {
-    id: 4,
-    name: "Aula 04",
-    completed: false,
-  },
-  {
-    id: 5,
-    name: "Aula 05",
-    completed: false,
-  },
-  {
-    id: 6,
-    name: "Aula 06",
-    completed: false,
-  },
-  {
-    id: 7,
-    name: "Aula 07",
-    completed: false,
-  },
+
 ]
 </script>
 
