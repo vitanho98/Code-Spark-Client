@@ -175,6 +175,28 @@ const router = createRouter({
       path: '/courses/:courseId/enroll',
       name: 'enroll',
       component: EnrollCourseView,
+      beforeEnter: (async (to, from, next) => {
+        const { user } = useAuthStore()
+        const courseId = to.params.courseId as string
+
+        try {
+          const {data: { course }} = await api.get<{course: ICourse}>(`/courses/${courseId}`)
+          const userIsTheOwner = user && user.id === course.instructorId
+          
+          if (userIsTheOwner) {
+            return next({
+              path: `/courses/${courseId}/dashboard`
+            })
+          }
+
+          return next()
+        } catch (err) {
+          console.error(err)
+          return next({
+            path: '/'
+          })
+        }
+      })
     },
 
     {

@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-  <router-link :to="`course/${course.course.id}`">
+  <router-link :to="`courses/${course.course.id}/enroll`">
     <article
       class="bg-gray-800 rounded w-full xs:w-80 cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition-all">
       <header>

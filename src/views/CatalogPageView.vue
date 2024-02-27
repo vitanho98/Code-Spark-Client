@@ -4,14 +4,13 @@ import DefaultList from '@/components/UI/DefaultList.vue';
 import DefaultTitle from '@/components/UI/DefaultTitle.vue';
 import EmptyList from '@/components/UI/EmptyList.vue';
 import SearchBar from '@/components/UI/SearchBar.vue';
-import TagCourse from '@/components/UI/TagCourse.vue';
+import TagsCarousel from '@/components/UI/TagsCarousel.vue';
 import type { ICourseWithInstructorAndEvaluationsAverage } from '@/interfaces/ICourseWithInstructorAndEvaluationsAverage';
 import { type ITag } from '@/interfaces/ITag';
 import { fetchRecentCourses } from '@/services/fetchRecentCourses';
 import { fetchRecentTags } from '@/services/fetchRecentTags';
 import { queryCoursesByName } from '@/services/queryCoursesByName';
 import { queryCoursesByTag } from '@/services/queryCoursesByTag';
-import Carousel from 'primevue/carousel';
 
 export default {
     components: {
@@ -19,8 +18,7 @@ export default {
         DefaultList,
         DefaultTitle,
         SearchBar,
-        Carousel,
-        TagCourse,
+        TagsCarousel,
         EmptyList
     },
 
@@ -67,29 +65,15 @@ export default {
                 <header class="flex flex-col gap-4">
                     <div>
                         <DefaultTitle text="Catálogo" />
-                        <span class="text-gray-200 text-lg font-light">Explore nosso vasto catálogo e encontre o melhor
+                        <span class="text-gray-200 text-lg font-light">
+                            Explore nosso vasto catálogo e encontre o melhor
                             curso
                             para
-                            você</span>
+                            você
+                        </span>
                     </div>
 
-                    <Carousel :value="tags" :circular="true" :num-scroll="1" :show-indicators="false"
-                        :show-navigators="true" :num-visible="4" :responsive-options="[
-                            {
-                                breakpoint: '700px',
-                                numVisible: 3,
-                                numScroll: 1
-                            },
-                            {
-                                breakpoint: '500px',
-                                numVisible: 2,
-                                numScroll: 1
-                            },
-                        ]">
-                        <template #item="{ data }">
-                            <TagCourse @search-by-click="handleSearchByTag" class="mx-1" :tag="data" />
-                        </template>
-                    </Carousel>
+                    <TagsCarousel :tags="tags" :handle-search-by-tag="handleSearchByTag" />
                 </header>
 
                 <main class="flex flex-col gap-9">
