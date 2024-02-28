@@ -1,29 +1,26 @@
 import type { IClass } from '@/interfaces/IClass'
 import type { ICourse } from '@/interfaces/ICourse'
 import type { IModule } from '@/interfaces/IModule'
+import DashboardView from '@/views/DashboardView.vue'
 import { api } from '@/lib/axios'
 import { useAuthStore } from '@/stores/auth'
 import AddClassToModuleView from '@/views/AddClassToModuleView.vue'
 import AddModuleToCourseView from '@/views/AddModuleToCourseView.vue'
-import CoursePageView from '@/views/CoursePageView.vue'
-import EditClassView from '@/views/EditClassView.vue'
 import EditModuleView from '@/views/EditModuleView.vue'
 import EditUserView from '@/views/EditUserView.vue'
 import EnrollCourseView from '@/views/EnrollCourseView.vue'
 import ModulePageView from '@/views/ModulePageView.vue'
-import ProfileViewVue from '@/views/ProfileView.vue'
-import RegisterCourseView from '@/views/RegisterCourseView.vue'
-import CatalogPageView from '@/views/CatalogPageView.vue'
-import ModulePageView from '@/views/ModulePageView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import ClassViewVue from '@/views/ClassView.vue'
-import SignInView from '@/views/SignInView.vue'
-import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useCookies } from 'vue3-cookies'
 import HomeView from '../views/HomeView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import SignInView from '@/views/SignInView.vue'
+import EditClassView from '@/views/EditClassView.vue'
+import RegisterCourseView from '@/views/RegisterCourseView.vue'
+import ClassPageView from '@/views/ClassPageView.vue'
+import CatalogPageView from '@/views/CatalogPageView.vue'
 import CoursePageView from '@/views/CoursePageView.vue'
 
 
@@ -232,8 +229,6 @@ const router = createRouter({
       meta: {
         hideNavbar: true,
       },
-      beforeEnter: () => {
-       },
       beforeEnter: (_from, _to, next) => {
         const { isAuthenticated } = useAuthStore()
 
@@ -245,14 +240,8 @@ const router = createRouter({
         return next()
       }
     },
-       }
-      },
+    
 
-    {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileViewVue
-    },
 
   {
     path: '/profile',
@@ -283,7 +272,6 @@ const router = createRouter({
     component: ClassPageView
   },
 
-
   {
     path: '/modules',
     name: 'modules',
@@ -293,50 +281,26 @@ const router = createRouter({
   {
     path: '/catalog',
     name: 'catalog',
-    component: CatalogPageViewVue
+    component: CatalogPageView
   },
+
   {
     path: '/coursepage',
     name: 'coursepage',
     component: CoursePageView
   },
+
   {
     path: '/classes',
     name: 'classes',
     component: ClassViewVue
   },
+
   {
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardView,
   }
-
-      component: ClassPageViewVue
-    },
-      
-    {
-      path: '/modules',
-      name: 'modules',
-      component: ModulePageView
-    },
-      
-    {
-      path: '/catalog',
-      name: 'catalog',
-      component: CatalogPageViewVue
-    },
-      
-    {
-      path: '/coursepage',
-      name: 'coursepage',
-      component: CoursePageView
-    },
-    {
-      path: '/classes',
-      name: 'classes',
-      component: ClassViewVue
-      
-    }
   ]
 })
 
