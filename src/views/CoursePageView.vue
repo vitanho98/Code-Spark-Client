@@ -64,14 +64,8 @@ const modules: IModule[] = [
         description: 'Lorem ipsum dolor sit amet, ipsum dolor sit amet consectetur adipiscing. Vitae semper quis lectus nulla at volutpat diam ut venenatis.',
         moduleNumber: 1,
         courseId: 'bjdjh'
+    },
 
-        id: '1',
-        name: 'Module 01',
-        description: 'dawdawdawdawd',
-        courseId: 'dwadaw',
-        moduleNumber: 1
-
-    }
 ]
 </script>
 
